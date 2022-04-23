@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <p class="mt-6">{{ form.code.label }}<br>
+            {{ form.code(class="form-control") }}<br>
+            {% for error in form.code.errors %}
+                <p content="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    </form>
+    {% for el in result %}
+        <div class="alert alert-success" role="alert">
+            <h2>Название: {{ el.title }}</h2>
+            <h3>Описание: {{ el.about }}</h3>
+            <h4>Цена: {{ el.price }}</h4>
+            <h4>Количевство: {{ el.amount }}</h4>
+            <h4>Объем: {{ el.volume }}</h4>
+            <h4>Тип доставки: {{ el.delivery_type }}</h4>
+            <h4>Вес: {{ el.weight }}</h4>
+            <h4>Цена доставки: {{ el.delivery_price }}$</h4>
+            <img src="{{ el.path_to_image }}" alt="фото" style="max-width: 100%;max-height: 100%">
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
