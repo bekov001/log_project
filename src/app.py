@@ -117,7 +117,7 @@ def register():
 
 def main():
     """Главная функция запуска"""
-    db_session.global_init("db/code.db")
+    db_session.global_init("db/log.db")
     app.register_blueprint(delivery_api.blueprint)
     app.register_blueprint(product_api.blueprint)
     app.register_blueprint(user_api.blueprint)
