@@ -122,7 +122,7 @@ def main():
     app.register_blueprint(product_api.blueprint)
     app.register_blueprint(user_api.blueprint)
     app.debug = True
-    app.run(host="0.0.0.0", port=5000)
+    app.run()
 
 
 @app.route('/logout')
