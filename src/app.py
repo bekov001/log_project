@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['JSON_AS_ASCII'] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/code.db?check_same_thread=False"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/log.db?check_same_thread=False"
 login_manager = LoginManager()
 login_manager.init_app(app)
 img_path = "static/img/"
