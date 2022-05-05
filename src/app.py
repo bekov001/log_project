@@ -3,7 +3,7 @@ import os
 from flask import Flask, redirect, render_template
 from werkzeug.utils import secure_filename
 
-from src.api import delivery_api
+from src.api import delivery_api, product_api, user_api
 from src.data import db_session
 from src.data.products import Products
 from src.data.user import User
@@ -18,11 +18,12 @@ from flask_login import LoginManager, login_user, login_required, logout_user, \
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['JSON_AS_ASCII'] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/code.db?check_same_thread=False"
 login_manager = LoginManager()
 login_manager.init_app(app)
-# img_path = "static/img/"
-img_path = "/home/anuarka/logistic/static/img/"
+img_path = "static/img/"
+# img_path = "/home/anuarka/logistic/static/img/"
 # app.config['RESIZE_URL'] = 'https://mysite.com/'
 # app.config['RESIZE_ROOT'] = '/static/img/'
 
@@ -50,10 +51,11 @@ def index():
 @app.route("/add_code", methods=["POST", "GET"])
 @login_required
 def add_code():
-    """Добавление кода"""
+    """страница Добавления товара в БД"""
     form = AddCodeForm()
 
     if form.validate_on_submit():
+        # сохраняем изображение
         f = form.photos.data
         filename = secure_filename(f.filename)
         path = os.path.join(
@@ -77,6 +79,7 @@ def add_code():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """страница авторизации"""
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -92,30 +95,32 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """страница Регистрации"""
     form = RegisterForm()
+    message = ""
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user = User()
-        user.email = form.email.data
-        user.name = form.name.data
-        user.surname = form.surname.data
-        user.set_password(form.password.data)
-        db_sess.add(user)
-        db_sess.commit()
-        login_user(user, remember=form.remember_me.data)
-        return redirect("/")
-    return render_template('authentication/register.html', title='Авторизация', form=form)
-
-
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    return render_template('profile.html')
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            message = "Такой email уже существует"
+        else:
+            user = User()
+            user.email = form.email.data
+            user.name = form.name.data
+            user.surname = form.surname.data
+            user.set_password(form.password.data)
+            db_sess.add(user)
+            db_sess.commit()
+            login_user(user, remember=form.remember_me.data)
+            return redirect("/")
+    return render_template('authentication/register.html', title='Авторизация', form=form, message=message)
 
 
 def main():
     """Главная функция запуска"""
     db_session.global_init("db/code.db")
     app.register_blueprint(delivery_api.blueprint)
+    app.register_blueprint(product_api.blueprint)
+    app.register_blueprint(user_api.blueprint)
     app.debug = True
     app.run(host="0.0.0.0", port=5000)
 
@@ -123,6 +128,7 @@ def main():
 @app.route('/logout')
 @login_required
 def logout():
+    """Функция выхода"""
     logout_user()
     return redirect("/")
 

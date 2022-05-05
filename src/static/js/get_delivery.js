@@ -30,8 +30,15 @@ function func(index) {
     } else {
         result = Math.round(price * volume).toFixed(3)
     }
-    $("#delivery_price").val(result);
+    if (!valueIsNaN(result)){
+         $("#delivery_price").val(result);
+    } else {
+        console.log(result)
+    }
+
 }
+
+function valueIsNaN(v) { return v !== v; }
 
 $.getJSON(window.location.protocol + "/api/weight_info", function (json) {
     put_variable(json)

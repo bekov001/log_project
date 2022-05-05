@@ -8,6 +8,7 @@ from .db_session import SqlAlchemyBase
 
 
 class Products(SqlAlchemyBase, SerializerMixin):
+    """Таблица товаров в бд"""
     __tablename__ = 'products'
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
