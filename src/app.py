@@ -16,10 +16,11 @@ from flask_login import LoginManager, login_user, login_required, logout_user, \
 
 
 app = Flask(__name__)
-
+file_path = os.path.abspath(os.getcwd())+"\db\log.db"
+print(file_path)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['JSON_AS_ASCII'] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/log.db?check_same_thread=False"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + file_path
 login_manager = LoginManager()
 login_manager.init_app(app)
 img_path = "static/img/"
@@ -117,7 +118,7 @@ def register():
 
 def main():
     """Главная функция запуска"""
-    db_session.global_init("db/log.db")
+    db_session.global_init("src/db/log.db")
     app.register_blueprint(delivery_api.blueprint)
     app.register_blueprint(product_api.blueprint)
     app.register_blueprint(user_api.blueprint)
