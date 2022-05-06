@@ -4,8 +4,10 @@ from json import load, loads
 from src.helper.variables import URL_PATH, TRANSPORT_DATA
 
 
-def test_empty():
-    print(loads(get(URL_PATH).json()["info"]) == TRANSPORT_DATA)
+def test_weight_info():
+    assert (loads(get(URL_PATH + "/api/weight_info").content)["info"] ==
+          TRANSPORT_DATA)
 
-
-test_empty()
+def test_api():
+    assert (loads(get(URL_PATH + "/api/weight_info").content)["info"] ==
+          TRANSPORT_DATA)
