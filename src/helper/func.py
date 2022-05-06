@@ -6,7 +6,7 @@ load_dotenv()
 
 
 def init_app(app):
-    app.config['SECRET_KEY'] = os.environ.get("secret_key")
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "RANDOM")
     app.config['JSON_AS_ASCII'] = False
     login_manager = LoginManager()
     login_manager.init_app(app)

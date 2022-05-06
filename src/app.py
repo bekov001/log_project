@@ -116,7 +116,9 @@ def main():
     app.register_blueprint(product_api.blueprint)
     app.register_blueprint(user_api.blueprint)
     app.debug = True
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    print(port)
+    app.run(host='0.0.0.0', port=port)
 
 
 @app.route('/logout')
@@ -127,5 +129,5 @@ def logout():
     return redirect("/")
 
 
-# if __name__ == '__main__':
-main()
+if __name__ == '__main__':
+    main()
