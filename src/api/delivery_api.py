@@ -12,5 +12,6 @@ blueprint = flask.Blueprint(
 
 @blueprint.route('/api/weight_info', methods=['GET'])
 def get_data():
-    """Дает информацию о транспортных значениях, (название, обьемный вес и цена)"""
+    """Дает информацию о транспортных значениях,
+    (название, обьемный вес и цена)"""
     return jsonify({"info": TRANSPORT_DATA})

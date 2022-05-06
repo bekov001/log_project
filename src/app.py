@@ -11,8 +11,7 @@ from src.forms.add_code import AddCodeForm
 from src.forms.authentication_form import RegisterForm, LoginForm
 from src.forms.input_form import FindForm
 
-from flask_login import LoginManager, login_user, login_required, logout_user, \
-    current_user
+from flask_login import login_user, login_required, logout_user
 from src.helper.func import init_app
 
 app = Flask(__name__)
@@ -36,10 +35,8 @@ def index():
     result = []
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        result = db_sess.query(Products).filter(Products.code == form.code.data).all()
-        data = ["volume", "delivery_type", "delivery_price", "amount",
-                "weight"]
-        print(result)
+        result = db_sess.query(Products).filter(Products.code ==
+                                                form.code.data).all()
     return render_template("index.html", form=form, result=result)
 
 
@@ -78,7 +75,8 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        user = db_sess.query(User).filter(User.email ==
+                                          form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
@@ -107,7 +105,8 @@ def register():
             db_sess.commit()
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
-    return render_template('authentication/register.html', title='Авторизация', form=form, message=message)
+    return render_template('authentication/register.html',
+                           title='Авторизация', form=form, message=message)
 
 
 def main():
