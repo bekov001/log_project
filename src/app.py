@@ -13,16 +13,10 @@ from src.forms.input_form import FindForm
 
 from flask_login import LoginManager, login_user, login_required, logout_user, \
     current_user
-
+from src.helper.func import init_app
 
 app = Flask(__name__)
-file_path = os.path.abspath(os.getcwd())+"\db\log.db"
-print(file_path)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-app.config['JSON_AS_ASCII'] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + file_path
-login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager = init_app(app)
 img_path = "static/img/"
 # img_path = "/home/anuarka/logistic/static/img/"
 # app.config['RESIZE_URL'] = 'https://mysite.com/'
@@ -118,7 +112,7 @@ def register():
 
 def main():
     """Главная функция запуска"""
-    db_session.global_init("src/db/db.db")
+    db_session.global_init("db/db.db")
     app.register_blueprint(delivery_api.blueprint)
     app.register_blueprint(product_api.blueprint)
     app.register_blueprint(user_api.blueprint)
