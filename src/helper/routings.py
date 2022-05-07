@@ -14,8 +14,7 @@ from forms.add_code import AddCodeForm
 from forms.input_form import FindForm
 from helper import LOCAL, URL_PATH
 from helper.func import init_app
-
-app = Flask(__name__, root_path=os.getcwd())
+app = Flask(__name__)
 login_manager = init_app(app)
 img_path = "src/static/img/"
 
@@ -35,7 +34,7 @@ def index():
         db_sess = db_session.create_session()
         result = db_sess.query(Products).filter(Products.code ==
                                                 form.code.data).all()
-    return render_template("index.html", form=form, result=result)
+    return os.getcwd()
 
 
 @app.route("/add_code", methods=["POST", "GET"])

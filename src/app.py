@@ -8,7 +8,7 @@ from helper.routings import app
 
 def main(app):
     """Главная функция запуска"""
-    db_session.global_init("src/db/db.db")
+    db_session.global_init("db/db.db")
     app.register_blueprint(delivery_api.blueprint)
     app.register_blueprint(product_api.blueprint)
     app.register_blueprint(user_api.blueprint)
