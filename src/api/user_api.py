@@ -1,6 +1,6 @@
 import flask
 from flask import jsonify, request
-from flask_login import login_required, login_user, current_user, LoginManager
+from flask_login import login_required, login_user, LoginManager
 
 from data import db_session
 from data.user import User

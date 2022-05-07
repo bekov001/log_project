@@ -1,7 +1,5 @@
 import os
 
-from flask_login import LoginManager
-
 PROTOCOL = "https"
 URL = os.environ.get("URL", "yandexlyc.herokuapp.com")
 URL_PATH = PROTOCOL + "://" + URL
