@@ -21,7 +21,7 @@ def test_api_user():
 
 
 def test_register():
-    """Информацию об пользователе нельзя получить без авторизации"""
+    """Проверка регистрации, регистрация должна пройти так как данные корректны"""
     assert (get(LOCAL + "/api/register", json={"email": "hello123@example.com",
                                                "name": "Anuarka",
                                                "surname": "Bekov",
@@ -30,7 +30,7 @@ def test_register():
 
 
 def test_register_repeat_email():
-    """Информацию об пользователе нельзя получить без авторизации"""
+    """Повторный email"""
     assert (get(LOCAL + "/api/register", json={"email": "hello123@example.com",
                                                "name": "Anuarka",
                                                "surname": "Bekov",
