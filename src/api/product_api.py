@@ -1,8 +1,9 @@
 import flask
 from flask import jsonify
+from flask_login import login_required
 
-from src.data import db_session
-from src.data.products import Products
+from data import db_session
+from data.products import Products
 
 blueprint = flask.Blueprint(
     'product_api',
@@ -12,6 +13,7 @@ blueprint = flask.Blueprint(
 
 
 @blueprint.route('/api/products')
+@login_required
 def get_products():
     """API получить все товары"""
     db_sess = db_session.create_session()
@@ -26,6 +28,7 @@ def get_products():
 
 
 @blueprint.route('/api/product/<int:id>')
+@login_required
 def get_product(id):
     """API получить один товар по id"""
     db_sess = db_session.create_session()

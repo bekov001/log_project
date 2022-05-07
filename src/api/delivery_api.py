@@ -1,7 +1,7 @@
 import flask
 from flask import jsonify
 
-from src.helper.variables import TRANSPORT_DATA
+from helper.variables import TRANSPORT_DATA
 
 blueprint = flask.Blueprint(
     'delivery_api',

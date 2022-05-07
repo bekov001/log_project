@@ -4,7 +4,7 @@ from wtforms import StringField, SubmitField, IntegerField, TextAreaField, \
     RadioField, FileField, FloatField
 from wtforms.validators import DataRequired
 
-from src.helper.variables import CHOICES
+from helper.variables import CHOICES
 
 
 class AddCodeForm(FlaskForm):
