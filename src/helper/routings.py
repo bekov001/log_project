@@ -14,7 +14,7 @@ from forms.add_code import AddCodeForm
 from forms.input_form import FindForm
 from helper import LOCAL, URL_PATH
 from helper.func import init_app
-app = Flask(__name__, root_path=os.getcwd() if os.environ.get("DEPLOY", "FALSE") else "/src")
+app = Flask(__name__, root_path=os.getcwd() if os.environ.get("DEPLOY", "FALSE") else "src")
 login_manager = init_app(app)
 img_path = "src/static/img/"
 
