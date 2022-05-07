@@ -16,6 +16,7 @@ python app.py
 ```
 
 # Для тестов
+запустите проект, затем введите команду
 ```
 python -m pytest src/tests/test_api.py
 ```

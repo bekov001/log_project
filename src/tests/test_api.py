@@ -22,7 +22,7 @@ def test_api_user():
 
 def test_register():
     """Проверка регистрации, регистрация должна пройти так как данные корректны"""
-    assert (get(LOCAL + "/api/register", json={"email": "hello123@example.com",
+    assert (get(LOCAL + "/api/register", json={"email": "hello123567@example.com",
                                                "name": "Anuarka",
                                                "surname": "Bekov",
                                                "password": "1234"}).json())[
@@ -31,7 +31,7 @@ def test_register():
 
 def test_register_repeat_email():
     """Повторный email"""
-    assert (get(LOCAL + "/api/register", json={"email": "hello123@example.com",
+    assert (get(LOCAL + "/api/register", json={"email": "hello1234567@example.com",
                                                "name": "Anuarka",
                                                "surname": "Bekov",
                                                "password": "1234"}).json())[
